@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+    <head>
+        <title>팀플</title>
+        <meta charset="utf-8">
+        <style type="text/css">
+            *{background-color: rgb(46, 46, 46); color: white;}
+            body{ font-size: 95%; margin: 0 auto; width: 40%;}
+            a{text-decoration: none;} <!--링크 페이지에 밑줄 안뜸-->
+
+            <!--반응형 부분-->
+
+            .menu{background-color: black;}
+            label, #toggle{display: none;}
+            #nav{padding: 0; margin: 0; display: inline; }
+            #nav li{display: inline-block; padding: 10px 60px;
+                font-weight: bold; font-size: 18px; }
+
+            <!--모바일 부분-->
+            @media screen and (max-width: 220px;) {
+                body{margin: 0 auto; width: 100%;}
+                #toggle :checked + #nav {display: block;}
+                #nav li{display: block; width: 100%; text-align: center;
+                border-top: 1px solid white; padding: 3%; font-size: 0.9em;}
+                label{display: block; text-align: center; font-size: 20px;
+                 font-weight: bold; padding: 10px 3%;}
+                
+                <!--image float 속성 지정-->
+            
+            }
+            
+        </style>
+    </head>
+    <body>
+        <!--메뉴바 부분-->
+        <div class="menu">
+            <label for="toggle">Menu</label>
+            <input type="checkbox" id="toggle">
+            <ul id="nav">
+                <!--클릭하면 각각의 페이지로 링크-->
+
+                <li><a href="테트리스 페이지">테트리스</a></li>
+                <li><a href="게임 2 페이지">게임 2</a></li>
+                <li><a href="조작 방법 페이지">조작 방법</a></li>
+            </ul>
+        </div>
+
+        <!--본문(게임 사진 넣은 뒤 사진 누르면 링크)-->
+    </body>
+</html>
