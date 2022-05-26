@@ -1,5 +1,5 @@
 var codingBy = "coding By SunKyu Choi in Web Programming team 4";
-var H=34, W=20; // field size
+var H=34, W=13; // field size
 var shapeArray = [
     [[2,2],[1,2],[1,1],[0,1]],
     [[1,1],[1,0],[0,2],[0,1]],
