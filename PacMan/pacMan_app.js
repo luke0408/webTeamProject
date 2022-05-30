@@ -39,14 +39,14 @@ document.getElementById("play").addEventListener("click", function game() {
 	const squares = [];
 
 
-// Draw the grid
+// 맵 생성
 	function createBoard() {
 		for (let i = 0; i < layout.length ; i++){
 			const square = document.createElement("div");
 			grid.appendChild(square);
 			squares.push(square);
 
-		// Add layout to the board
+		// 맵에 객체 생성
 			if (layout[i] === 0) {
 				squares[i].classList.add("pac-dot");
 			} else if (layout[i] === 1) {
@@ -62,7 +62,7 @@ document.getElementById("play").addEventListener("click", function game() {
 	}
 	createBoard();
 	
-//User's best score
+// 유저의 bestScore 보여줌
 	function bestScoreCount () {
 		let higher;
 		let bestScore = window.localStorage.getItem(higher);
@@ -82,11 +82,11 @@ document.getElementById("play").addEventListener("click", function game() {
 	}
 	bestScoreCount();
 	
-// Starting position of Pac-Man
+// Pac-Man 생성 위치 설정
 	let pacmanCurrentIndex = 518;
 	squares[pacmanCurrentIndex].classList.add("pac-man");
 
-// Move Pac-Man
+// Pac-Man 움직임
 	function movePacman (e) {
 		squares[pacmanCurrentIndex].classList.remove("pac-man");
 		switch(e.keyCode){
@@ -132,7 +132,7 @@ document.getElementById("play").addEventListener("click", function game() {
 
 		
 	
-// Move Pac-Man on mobile devices (Swipe up-down-left-right)
+// 모바일에서 Pac-Man의 움직임
 	var initialX = null;
 	var initialY = null;
 
@@ -210,7 +210,7 @@ document.getElementById("play").addEventListener("click", function game() {
 	
 
 	
-// When Pac-Man eats a Pac-Dot
+// Pac-Man 점수 획득
 	function pacDotEaten() {
 		if (squares[pacmanCurrentIndex].classList.contains("pac-dot")){
 			score++;
@@ -220,7 +220,7 @@ document.getElementById("play").addEventListener("click", function game() {
 		scoreDisplay.innerHTML = score;
 	}
 
-// When Pac-Man eats a Power-Pellet
+// Pac-Man 과일 획득
 		function powerPelletEaten () {
 			if (squares[pacmanCurrentIndex].classList.contains("power-pellet")) {
 				score += 10;
@@ -233,7 +233,7 @@ document.getElementById("play").addEventListener("click", function game() {
 		}
 
 
-// Create Ghost template
+// Ghost 정의
 	class Ghost {
 		constructor(className, startIndex, speed){
 			this.className = className;
@@ -252,17 +252,17 @@ document.getElementById("play").addEventListener("click", function game() {
 		new Ghost("clyde", 379, 250)
 	]
 		
-// Give back their colors to the ghosts
+// ghosts 색칠
 	function unScareGhosts () {ghosts.forEach(ghost => ghost.isScared = false)}
 	
 		
-// Draw the ghosts onto the grid
+// 맵에 ghosts 그리기
 	ghosts.forEach(ghost => {
 		squares[ghost.currentIndex].classList.add(ghost.className);
 		squares[ghost.currentIndex].classList.add("ghost");
 	})
 
-// Move the ghosts 
+// ghosts 움직임
 	ghosts.forEach(ghost => moveGhost(ghost));
 
 	function moveGhost (ghost) {
@@ -304,7 +304,7 @@ document.getElementById("play").addEventListener("click", function game() {
 		}, ghost.speed)
 	}
 
-// Check for Game Over
+// Game Over 여부 확인
 	function checkForGameOver () {
 		if (squares[pacmanCurrentIndex].classList.contains("ghost") && !squares[pacmanCurrentIndex].classList.contains("scared-ghost")) {
 			ghosts.forEach(ghost => clearInterval(ghost.timerId));
@@ -321,7 +321,7 @@ document.getElementById("play").addEventListener("click", function game() {
 		}	
 	}
 
-// Check for Win
+// Win 여부 확인
 	function checkForWin () {
 		if (toWin === 372) {
 			ghosts.forEach(ghost => clearInterval(ghost.timerId));
