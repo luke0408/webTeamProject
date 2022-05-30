@@ -11,4 +11,5 @@
  <PacMan>
  팩맨 게임 구현
  -> 기초 디자인 (완)
- -> click here to play 후 화면 전환 (오류 픽스 필요)
+ -> click here to play 후 화면 전환 (오류 픽스 완)
+ -> 화면 고정 기능 추가 (미 구현)
