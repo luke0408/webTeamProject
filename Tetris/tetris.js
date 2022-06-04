@@ -46,8 +46,8 @@ var createPoint=[1,parseInt(W/2)-2];
 var currentShape, nextShape;
 var score, level, levelStack=0;
 var isPaused = false;
-
 init();
+
 
 // 키 입력 처리
 document.onkeydown = keyDownEventHandler;
@@ -65,6 +65,7 @@ function keyUpEventHandler(e){
     if(e.keyCode == 40) moveSlow();
 }
 
+
 // 초기 설정
 function init(){
     drawField();
@@ -79,11 +80,11 @@ function init(){
     chooseNextColor();
     createShape();
 }
-
 function gebi(y,x){
     var ret = document.getElementById(String(y)+" "+String(x));
     return ret;
 }
+
 
 // 필드 초기화
 function initExistField(){
@@ -118,6 +119,7 @@ function setWall(){
         existField[H-1][i]=true;
     }
 }
+
 
 // 도형 생성
 function chooseNextShape(){
@@ -164,6 +166,7 @@ function initNextTable(){
         for(var j=0;j<4;j++)
             document.getElementById(String(i)+String(j)).style.background = "rgb(14,31,49)";
 }
+
 
 // 도형 조작
 function moveDown(){
@@ -247,6 +250,7 @@ function moveSlow(){
     fastMode = false;
 }
 
+
 // 점수 판정
 function commitExist(){
     for(var i=0;i<shapeCell.length;i++){
@@ -302,6 +306,7 @@ function displayCombo(combo, finalScore){
     document.getElementById("comboField").innerHTML = comboStr;
     setTimeout(function(){document.getElementById("comboField").innerHTML = "";},700);
 }
+
 
 // 종료 및 일시정지
 function gameOver(){
