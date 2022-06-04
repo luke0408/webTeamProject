@@ -1,12 +1,5 @@
-
-//  TODO:
-//    * touch controls
-//    * allow late piece rotation
-//    * code cleanup
-
-
-//------------//
-//    PAGE    //
+//-------------//
+//    페이지   //
 //------------//
 
 var Page = {  
@@ -19,11 +12,11 @@ var Page = {
     unitSize: 0,
     AreaArr: [], 
     
-    // calculates the unit size, canvas bounds, and canvas positioning
+    // 캔버스의 크기, 위치, unitSize 계산
     WindowChanged: function() {
       
-      // Calulcate the unitSize based on window width and height.
-      // The minimum of these calculations will be used.
+      // 윈도우의 너비와 높이를 기준으로 unitSize를 계산
+      // 계산 값의 최소값을 사용
       
       var bodyW = document.documentElement.clientWidth,
           bodyH = document.documentElement.clientHeight,
@@ -31,12 +24,12 @@ var Page = {
           newUnitH = (bodyH - (bodyH % 100)) / 20,
           newUnitMin = Math.max(Math.min(newUnitW, newUnitH), 20);    
       
-      // if the calcUnitMin != unitSize, update unitSize, recalculate
-      // all DrawAreaObjs, and update the canvas element bounds
+      // calcUnitMin != unitSize인 경우 unitSize를 update하고 재계산한다.
+      // 모든 DrawAreaObjs 및 캔버스 요소 경계 update
       
       this.unitSize = newUnitMin;
   
-      // store Right-most & Bottom-most points for canvas bounds
+      // 캔버스 경계에 대한 오른쪽 맨 아래 점 저장
       var rightLimit = 0,
           bottomLimit = 0;
   
@@ -53,12 +46,12 @@ var Page = {
       this.cvs.width = rightLimit;
       this.cvs.height = bottomLimit;
   
-      // left pos uses Game.W because ideally that area is centered
+      // 중심점을 구하기 위해 leftPos 를 Game.W를 이용해 구한다.
       var topPos = (bodyH - bottomLimit) / 2,
           leftPos = (bodyW / 2) - (this.Game.W / 2),
           rightOffset = bodyW - (leftPos + rightLimit) - this.unitSize * 0.5;       
   
-      // if default canvas positioning extends beyond screen, adjust it
+      // 기본 캔버스의 위치가 화면 밖으로 확장되는 경우 조정
       if (rightOffset < 0){
         leftPos = Math.max(this.unitSize * 0.5, leftPos + rightOffset);
       }
@@ -67,10 +60,10 @@ var Page = {
       this.cvs.style.top =  topPos + 'px';    
     },
     
-    // performs the page setup
+    // 페이지 설정
     Initialize: function(){
       
-      // if page has not been setup, do initial setup
+      // 페이지가 설정되지 않은 경우 초기 설정을 수행
       if (this.IsSetup === false){
         document.body.appendChild(Page.cvs);
   
@@ -84,13 +77,13 @@ var Page = {
       
       this.WindowChanged();
       
-      // dirty all draw areas
+      // 그리기 영역 블럭으로 체우기
       for(var i = 0; i < Page.AreaArr.length; i++){
         Page.AreaArr[i].IsDirty = true;
       }
     },
   
-    // redraws canvas visuals whenever the page is marked as dirty
+    // 페이지에 블럭이 추가될 때마다 캔버스 시각 자료를 다시 그림
     Update: function() {
       for(var i = 0; i < Page.AreaArr.length; i++){
         if (Page.AreaArr[i].IsDirty){
@@ -102,25 +95,25 @@ var Page = {
   };
    
   
-  // Definition for Area objects. Bounds are in UNITS
+  // UNITS의 경계에 대한 영역 개체에 정의
   function DrawAreaObj(Left,Top,Width,Height,DrawFunction){
   
-    // bounds in UNITS
+    // UNITS의 경계
     this.leftBase = Left;
     this.topBase = Top;
     this.widthBase = Width;
     this.heightBase = Height;
     
-    // bounds in PIXELS
+    // 경계 굵기
     this.left = 0;
     this.top = 0;
     this.W = 0;
     this.H = 0;
     
-    // dirty flag (clean yourself up flag, you're better than that)
+    // 블럭 위치 저장 (블럭 정리를 도와줌)
     this.IsDirty = false;
     
-    // bounds recalculated and area dirtied when unitSize changes
+    // unitSize가 변경될때마다 경계를 다시 계산하고 블럭을 그림
     this.CalculateBounds = function(){
       this.left = this.leftBase * Page.unitSize;
       this.top = this.topBase * Page.unitSize;
@@ -130,10 +123,10 @@ var Page = {
       this.IsDirty = true;
     };
     
-    // draw function as passed in by the callee
+    // DrawFunction 호출
     this.Draw = DrawFunction;
     
-    // push this area into the area arr    
+    // 이 공간에 대한 정보를 AreaArr에 push
     Page.AreaArr.push(this);
   }
   
@@ -651,10 +644,9 @@ var Page = {
   //    PIECE TYPE TEMPLATES    //
   //----------------------------//
   
-  // Templates create a new piece object instance based on
-  // their color, rotation count, and unit block definitions.
+  // 각 블럭에 대한 색, 모양 등 인스턴스 객체 정의
   
-  // O - Square piece definition
+  // O - 정사각형 블럭
   GM.O = function(){
     return new GM.PcObj('rgb(255,232,51)', 1,                
                         [{x:-1,y: 0},
@@ -663,7 +655,7 @@ var Page = {
                          {x: 0,y: 1}]);
   };
   
-  // I - Line piece definition
+  // I - 4칸짜리 긴 블럭
   GM.I = function(){
     return new GM.PcObj('rgb(51,255,209)', 2,  
                         [{x:-2,y: 0},
@@ -672,7 +664,7 @@ var Page = {
                          {x: 1,y: 0}]);
   };
   
-  // S - Right facing zigzag piece definition
+  // S - 오른쪽 지그제그 블럭
   GM.S = function(){ 
     return new GM.PcObj('rgb(106,255,51)', 2, 
                         [{x: 0,y: 0},
@@ -681,7 +673,7 @@ var Page = {
                          {x: 0,y: 1}]);
   };
   
-  // Z - Left facing zigzag piece definition
+  // Z - 왼쪽 지그제그 블럭
   GM.Z = function(){ 
     return new GM.PcObj('rgb(255,51,83)', 2,
                         [{x:-1,y: 0},
@@ -690,7 +682,7 @@ var Page = {
                          {x: 1,y: 1}]);
   };
   
-  // L - Right facing angle piece definition
+  // L - 3칸 후 오른쪽 1칸 블럭
   GM.L = function(){
     return new GM.PcObj('rgb(255,129,51)', 4,
                         [{x:-1,y: 0},
@@ -699,7 +691,7 @@ var Page = {
                          {x:-1,y:-1}]);
   };
   
-  // J - Left facing angle piece definition
+  // J - 3칸 후 왼쪽 1칸 블럭
   GM.J = function(){
     return new GM.PcObj('rgb(64,100,255)', 4,
                         [{x:-1,y: 0},
@@ -708,7 +700,7 @@ var Page = {
                          {x: 1,y:-1}]);
   };
   
-  // T - Hat shaped piece definition
+  // T - T자 블럭
   GM.T = function(){
     return new GM.PcObj('rgb(160,62,255)', 4,
                         [{x:-1,y: 0},
@@ -722,14 +714,14 @@ var Page = {
   //    ACTIVE PIECE CONTROLLER    //
   //-------------------------------//
   
-  // Controls the generation, movement, and placement of piece 
-  // objects. Monitors the current piece and upcoming piece
+  // 블럭 생성, 이동 및 배치 제어 
+  // 현재 블럭 낙하 위치 예측 및 다음 블럭 모니터링
   
   GM.Pc = {
     
     //-- VARS ---------*/
     
-    // current piece, projected Y pos of cur piece  
+    // 현재 블럭의 낙하 위치 Y 
     Cur:0, ProjY:0,
     
     // upcoming pieces
@@ -922,9 +914,9 @@ var Page = {
   //    EVENT LISTENERS    //
   //-----------------------//
   
-  // Event for keyboard calls the corresponding manipulation functions
-  // in GM.Pc based on user inputs. If manipulation is successful,
-  // the page is marked as dirty.
+  // 키보드 이벤트는 GM에서 해당 조작 기능을 호출함
+  // 사용자 입력에 기반에 작동함
+  // 조작에 성공하면 블럭이 쌓인다.
   
   document.addEventListener('keydown', function(evt){
     var key = event.keyCode || event.which;
@@ -970,13 +962,21 @@ var Page = {
       }
     }
     
-    // if player not alive, reset the game
+    // user가 죽으면 게임 리셋
     else{
       Init();
     }
     
   }, false);
-  
+
+// 죽으면 GameOver 문구 뜨고 다른 버튼 클릭하면 제시작하는 코드 추가
+function gameOver(){
+    clearTimeout(movingThread);
+    initExistField();
+    alert("[Game Over]\nLevel: "+level+"\nScore: "+score);
+    document.getElementById("gameField").style.visibility = "hidden";
+    document.getElementById("gameover").style.visibility = "visible";
+}
   
   // Window resize event calls Page function to update the canvas 
   // size/position, area bounds within the canvas, and the unitSize
@@ -990,29 +990,29 @@ var Page = {
   //    INITIALAZATION AND GAME LOOP      //
   //--------------------------------------//
   
-  // Called on page load / game reset, Init fcn initializes 
-  // the Page and GM objects, then starts the main game loop.
+  // 페이지 로드/게임 리셋에서 호출되는 Initfcn은 페이지와 GM 개체를 초기화한 다음 메인 게임 루프를 시작함
   
   function Init () { 
     
-    // initialize the page object
+    // paga object 초기화
     Page.Initialize();
     
-    // initialize the GM object
+    // GM object 초기화
     GM.Initialize();
   }
   Init();
   
   
-  // Main game loop. Updates GM object to check if tick can be
-  // performed. Then, if the page is dirty, performs a Draw.
+  // 메인 게임 루프 
+  // 체크 표시를 수행할 수 있는지 확인하기 위해 GM 개체를 업데이트
+  // 그런 다음 페이지에 블럭이 확인되면 그리기를 수행합니다
   
   function Loop() {  
     
-    // always update Page
+    // 계속 페이지 업데이트
     Page.Update();
     
-    // only need to update GM if the player is alive
+    // user가 살아있는 경우에만 GM 업데이트
     if (GM.IsAlive){
       GM.Update();
     }
