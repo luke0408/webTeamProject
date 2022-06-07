@@ -1,0 +1,55 @@
+*{background-color: rgb(46, 46, 46);
+    color: white;}
+body{ font-size: 95%; 
+    margin: 0 auto; 
+    width: 70%;}
+a{text-decoration: none;} 
+/*링크 페이지에 밑줄 안뜸*/
+
+
+/*반응형 부분*/
+
+
+
+label, #toggle{ display: none;}
+#nav{
+    padding: 0; 
+    margin: 0; 
+    display: inline;
+}
+#nav li{
+    display: inline-block; 
+    padding: 10px 40px;
+    font-weight: bold; 
+    font-size: 17px;
+}
+.img{height: 370px; width: 370px; margin: 10px;}
+.img2{float: left;}
+.explan1{font-size: 14px;}
+.Img{display: inline-block; }
+
+
+
+/*모바일 부분 근데 동작을 안함*/
+@media screen and (max-width: 700px) {
+    body{
+        margin: 0 auto; 
+        width: 100%; 
+    }
+    #toggle :checked + #nav {
+        display: block;
+    }
+    #nav li{
+        display: block; 
+        width: 100%; 
+        text-align: center;
+        border-top: 1px solid rgb(135, 134, 134); 
+        padding: 3%; 
+        font-size: 0.9em;
+    }
+    .menu3{border-bottom: 1px solid rgb(135, 134, 134); }
+    label{
+        display: block;} 
+    .explan{text-indent: 8%;}
+    .img{height: 80%; width: 80%; margin: 6%;}
+}
