@@ -4,7 +4,7 @@ let toWin = 0;
 
 document.getElementById("play").addEventListener("click", function game() {
 	const scoreDisplay = document.getElementById("score");
-	const width = 28; // 28*28 = 784 squares
+	const width = 28;
 	const grid = document.querySelector(".grid")
 	const layout = [
 		1,1,1,1,1,1,1,1,4,4,1,1,1,4,4,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -94,7 +94,7 @@ document.getElementById("play").addEventListener("click", function game() {
 				if (pacmanCurrentIndex % width !== 0 && !squares[pacmanCurrentIndex -1].classList.contains("wall") && !squares[pacmanCurrentIndex -1].classList.contains("ghost-lair")) {
 					pacmanCurrentIndex -=1;
 					squares[pacmanCurrentIndex].style.transform = "scaleX(-1) rotate(95deg)";
-					// If Pac-Man is on the left exit
+
 					if (pacmanCurrentIndex - 1 === 363) {
 						pacmanCurrentIndex = 391;
 				}}
@@ -107,7 +107,7 @@ document.getElementById("play").addEventListener("click", function game() {
 			case 39:
 				if (pacmanCurrentIndex % width < width - 1 && !squares[pacmanCurrentIndex +1].classList.contains("wall") && !squares[pacmanCurrentIndex +1].classList.contains("ghost-lair")){ pacmanCurrentIndex += 1;
 					squares[pacmanCurrentIndex].style.transform = "scaleY(1) rotate(95deg)";
-					// If Pac-Man is on the right exit
+
 					if(pacmanCurrentIndex + 1 === 392) {
 						pacmanCurrentIndex = 364;
 				}}
@@ -158,31 +158,28 @@ document.getElementById("play").addEventListener("click", function game() {
 		
 		if (Math.abs(diffX) > Math.abs(diffY)){
 			if (diffX > 0) {
-				// Swipe Left
+
         if (pacmanCurrentIndex % width !== 0 && !squares[pacmanCurrentIndex -1].classList.contains("wall") && !squares[pacmanCurrentIndex -1].classList.contains("ghost-lair")) {
 					pacmanCurrentIndex -=1;
 					squares[pacmanCurrentIndex].style.transform = "scaleX(-1) rotate(95deg)";
-					// If Pac-Man is on the left exit
+
 					if (pacmanCurrentIndex - 1 === 363) {
 						pacmanCurrentIndex = 391;
 				}}
 			} else {
-				// Swipe Right
 				if (pacmanCurrentIndex % width < width - 1 && !squares[pacmanCurrentIndex +1].classList.contains("wall") && !squares[pacmanCurrentIndex +1].classList.contains("ghost-lair")){ pacmanCurrentIndex += 1;
 					squares[pacmanCurrentIndex].style.transform = "scaleY(1) rotate(95deg)";
-					// If Pac-Man is on the right exit
+
 					if(pacmanCurrentIndex + 1 === 392) {
 						pacmanCurrentIndex = 364;
 				}}
 			}
 		} else {
 			if (diffY > 0){
-				// Swipe Up
 				if (pacmanCurrentIndex - width >= 0 && !squares[pacmanCurrentIndex - width].classList.contains("wall") && !squares[pacmanCurrentIndex - width].classList.contains("ghost-lair")) { pacmanCurrentIndex -= width;
 					squares[pacmanCurrentIndex].style.transform = "scaleY(1)";
 				}
 			} else {
-				// Swipe Down
 				if (pacmanCurrentIndex + width < width * width && !squares[pacmanCurrentIndex + width].classList.contains("wall") && !squares[pacmanCurrentIndex + width].classList.contains("ghost-lair")) {
 					pacmanCurrentIndex += width;
 					squares[pacmanCurrentIndex].style.transform = "rotate(190deg)";
