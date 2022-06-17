@@ -310,9 +310,9 @@ document.getElementById("play").addEventListener("click", function game() {
 			scoreDisplay.innerHTML = score;
 			let gameOver = document.createElement("div");
 			gameOver.classList.add("gameOver");
-			document.body.append(gameOver);
+			$(".GameField").append(gameOver);
 			restartButton.classList.add("restart");
-			document.body.append(restartButton);
+			$(".GameField").append(restartButton);
 			document.getElementById("play").removeEventListener("click", game);
 			restartButton.addEventListener("click", () => {window.location.reload(false)})				
 		}	
