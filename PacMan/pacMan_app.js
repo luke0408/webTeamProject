@@ -245,8 +245,7 @@ document.getElementById("play").addEventListener("click", function game() {
 	const ghosts = [
 		new Ghost("blinky", 348, 290),
 		new Ghost("pinky", 376, 380),
-		new Ghost("inky", 351, 200),
-		new Ghost("clyde", 379, 250)
+		new Ghost("inky", 351, 200)
 	]
 		
 // ghosts 색칠
@@ -327,9 +326,9 @@ document.getElementById("play").addEventListener("click", function game() {
 			scoreDisplay.innerHTML = score;
 			let youWon = document.createElement("div");
 			youWon.classList.add("won");
-			document.body.append(youWon);
+			$(".GameField").append(youWon);
 			restartButton.classList.add("restart");
-			document.body.append(restartButton);
+			$(".GameField").append(restartButton);
 			document.getElementById("play").removeEventListener("click", game);
 			restartButton.addEventListener("click", () => {window.location.reload(false)})
 		}

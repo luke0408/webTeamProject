@@ -192,7 +192,7 @@
 /* 게임종료 */
 .gameOver, .won{
     position: absolute;
-    margin-top: 80px;
+    margin-top: 130px;
     width: 396px;
     border: 2px solid rgba(239,0,0,1.00);
     text-shadow: 1px 1px 0 rgba(239,0,0,1.00);
@@ -218,7 +218,7 @@
 	position: absolute;
 	width : 150px;
 	height: 40px;
-	margin-top: 100px;
+	margin-top: 156px;
 	background-color: rgba(10,7,67,1.00);
 	border: 2px solid rgba(239,0,0,1.00);
 	border-radius: 5px;
